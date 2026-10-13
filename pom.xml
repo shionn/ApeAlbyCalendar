@@ -1,0 +1,187 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>shionn</groupId>
+	<artifactId>ApeAlbyCalendar</artifactId>
+	<version>1.0</version>
+	<name>ApeAlbyCalendar</name>
+	<packaging>war</packaging>
+	<description>Projet en Tomcat 11</description>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<version.spring>7.0.7</version.spring>
+		<version.servlet-api>6.0.0</version.servlet-api>
+		<version.jsp-api>4.0.0</version.jsp-api>
+		<version.jstl>3.0.1</version.jstl>
+		<version.jstl-api>3.0.2</version.jstl-api>
+		<version.lombock>1.18.38</version.lombock>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>17</source>
+					<target>17</target>
+					<encoding>UTF-8</encoding>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>${version.lombock}</version>
+						</path>
+					</annotationProcessorPaths>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.2</version>
+					<configuration>
+					<url>http://ApeAlbyCalendar:80/manager/text</url>
+					<server>Proxmox</server>
+					<path>/</path>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.5.2</version>
+			</plugin>
+
+			<plugin>
+				<groupId>nl.geodienstencentrum.maven</groupId>
+				<artifactId>sass-maven-plugin</artifactId>
+				<version>3.7.2</version>
+				<executions>
+					<execution>
+						<id>sass</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>update-stylesheets</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<sassSourceDirectory>src/main/sass/</sassSourceDirectory>
+					<destination>src/main/webapp/css/</destination>
+				</configuration>
+			</plugin>
+
+		</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+	</build>
+
+
+	<dependencies>
+
+		<!-- Spring / web -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${version.spring}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.web</groupId>
+			<artifactId>jakarta.servlet.jsp.jstl</artifactId>
+			<version>${version.jstl}</version>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.servlet.jsp.jstl</groupId>
+			<artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+			<version>${version.jstl-api}</version>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.servlet.jsp</groupId>
+			<artifactId>jakarta.servlet.jsp-api</artifactId>
+			<version>${version.jsp-api}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
+			<version>${version.servlet-api}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>tools.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>3.1.3</version>
+		</dependency>
+
+		<!-- Persistence / MyBatis -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.5.19</version>
+		</dependency>
+		<dependency>
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
+			<version>9.7.0</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>${version.lombock}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>2.0.17</version>
+		</dependency>
+
+		<!-- Test -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>6.0.3</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
+			<version>3.27.7</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>5.23.0</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<profiles>
+
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<mybatis.driver>com.mysql.cj.jdbc.Driver</mybatis.driver>
+				<mybatis.url>jdbc:mysql://${collections.mysql.host}:3306/collections?serverTimezone=CET</mybatis.url>
+				<mybatis.username>${collections.mysql.user}</mybatis.username>
+				<mybatis.password>${collections.mysql.pass}</mybatis.password>
+			</properties>
+		</profile>
+
+	</profiles>
+
+</project>

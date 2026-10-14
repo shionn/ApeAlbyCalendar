@@ -23,6 +23,11 @@ Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapi
 		<tr><th>Quand</th><th colspan="2">Qui</th></tr>
 	</thead>
 	<tbody>
+		<c:forEach items="${event.periods}" var="period">
+			<tr>
+				<td>${period.label}</td><td>TODO</td>
+			</tr>
+		</c:forEach>
 		<tr>
 			<td>7h-8h</td><td>Ludovic K.</td><td>Jean M.</td>
 		</tr>

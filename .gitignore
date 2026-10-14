@@ -2,3 +2,6 @@
 .settings/
 target/
 .project
+src/main/webapp/css/
+src/main/webapp/js/ajax.js
+src/main/webapp/js/scripts.js

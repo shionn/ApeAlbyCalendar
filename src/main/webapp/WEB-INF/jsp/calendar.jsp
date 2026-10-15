@@ -14,9 +14,10 @@
 Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
 </p>
 
-<a href="TODO"><b>Je m'inscis</b></a>
 
-<h2>Déjà inscrits</h2>
+<a href="<spring:url value="/event/${event.id}/register"/>"><b>Je m'inscis</b></a>
+
+<h2>Ils sont déjà inscrits</h2>
 
 <table>
 	<thead>

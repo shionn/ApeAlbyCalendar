@@ -20,6 +20,7 @@ public class Event {
 	private String name;
 	private Date day;
 	private int start, end;
+	private List<EventRegistration> registrations;
 
 	public List<EventPeriod> getPeriods() {
 		return IntStream.range(start, end)

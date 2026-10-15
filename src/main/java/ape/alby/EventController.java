@@ -1,5 +1,7 @@
 package ape.alby;
 
+import java.util.stream.IntStream;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,8 +27,21 @@ public class EventController {
 
 	@PostMapping("/event/{id}/register")
 	public ModelAndView register(@PathVariable("id") int id, @ModelAttribute() EventRegistration registration) {
+		// TODO verifier qu'un enregiostrement semblable n'existe pas, meme mail /
+		// prenom / nom/ event sans prendre en compte la casse
 		RegisterDao dao = session.getMapper(RegisterDao.class);
-		dao.register(id, registration);
+		IntStream
+				.range(registration.getArrivalHour(), registration.getDepartureHour())
+				.mapToObj(h -> EventRegistration
+						.builder()
+						.arrivalHour(h)
+						.email(registration.getEmail())
+						.comment(registration.getComment())
+						.departureHour(h + 1)
+						.firstName(registration.getFirstName())
+						.lastName(registration.getLastName())
+						.build())
+				.forEach(r -> dao.register(id, r));
 		session.commit();
 		return new ModelAndView("redirect:/");
 	}

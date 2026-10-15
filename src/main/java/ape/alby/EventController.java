@@ -28,7 +28,7 @@ public class EventController {
 		RegisterDao dao = session.getMapper(RegisterDao.class);
 		dao.register(id, registration);
 		session.commit();
-		return new ModelAndView("redirect:/calendar");
+		return new ModelAndView("redirect:/");
 	}
 
 }

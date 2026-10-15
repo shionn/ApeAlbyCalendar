@@ -15,13 +15,13 @@
 <title>Ape Alby s/ Chéran</title>
 <link rel="stylesheet" href="<spring:url value="/css/mvp.css"/>" />
 <link rel="stylesheet" href="<spring:url value="/css/style.css"/>" />
-<link rel="icon" href="<spring:url value="/img/favicon.ico"/>" type="image/x-icon">
-<link rel="shortcut icon" href="<spring:url value="/img/favicon.ico"/>" type="image/x-icon"> </head>
+<link rel="icon" href="<spring:url value="/img/favicon-64.ico"/>" type="image/x-icon">
+<link rel="shortcut icon" href="<spring:url value="/img/favicon-64.ico"/>" type="image/x-icon"> </head>
 </head>
 <body>
 	<header>
 		<nav>
-			<a href="<spring:url value="/"/>"><img src="<spring:url value="/img/favicon.ico"/>"/></a>
+			<a href="<spring:url value="/"/>"><img src="<spring:url value="/img/favicon-64.ico"/>"/></a>
 			<ul>
 				<li><a href="<spring:url value="/todo"/>">Historique</a></li>
 <%-- 				<li><a href="<spring:url value="/admin"/>">Admin</a></li> --%>

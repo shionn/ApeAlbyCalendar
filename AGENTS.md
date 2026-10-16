@@ -17,3 +17,17 @@ La classe de test et ses méthodes sont en visibilité **`public`** (pas la visi
 ## Injection des valeurs de test
 
 Ne **pas** utiliser la réflexion pour définir des champs `private` (désuet, fragile).
+
+## Réflexion
+
+Ne **pas** utiliser la réflexion pour accéder à des membres `private` (ni champs, ni méthodes). On ne casse pas la blackbox d'une classe.
+
+## SRP
+
+Chaque classe a une seule responsabilité.
+
+## Pas de Static non justifier 
+
+- Une methode static est un comportmeent de classe, comme la creation d'instance ou l'acces à un singleton
+- Du static est plus dur à mocker ou a injecter
+- Limite l'evolutivitée.

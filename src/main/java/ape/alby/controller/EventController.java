@@ -1,4 +1,4 @@
-package ape.alby;
+package ape.alby.controller;
 
 import java.util.stream.IntStream;
 
@@ -18,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class EventController {
 	private final SqlSession session;
+	private final EventRegistrationNormalizer nameNormalizer;
 
 	@GetMapping("/event/{id}/register")
 	public ModelAndView openRegistration(@PathVariable("id") int id) {
@@ -26,9 +27,10 @@ public class EventController {
 	}
 
 	@PostMapping("/event/{id}/register")
-	public ModelAndView register(@PathVariable("id") int id, @ModelAttribute() EventRegistration registration) {
+	public ModelAndView register(@PathVariable("id") int id, @ModelAttribute() EventRegistration form) {
 		// TODO verifier qu'un enregiostrement semblable n'existe pas, meme mail /
 		// prenom / nom/ event sans prendre en compte la casse
+		EventRegistration registration = normalize(form);
 		RegisterDao dao = session.getMapper(RegisterDao.class);
 		IntStream
 				.range(registration.getArrivalHour(), registration.getDepartureHour())
@@ -44,6 +46,10 @@ public class EventController {
 				.forEach(r -> dao.register(id, r));
 		session.commit();
 		return new ModelAndView("redirect:/");
+	}
+
+	private EventRegistration normalize(EventRegistration registration) {
+		return nameNormalizer.normalize(registration);
 	}
 
 }

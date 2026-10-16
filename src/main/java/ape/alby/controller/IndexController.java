@@ -1,4 +1,4 @@
-package ape.alby;
+package ape.alby.controller;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Controller;

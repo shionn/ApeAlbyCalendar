@@ -18,4 +18,7 @@ public class EventRegistration {
 	private int departureHour;
 	private String comment;
 
+	public String getShortLabel() {
+		return String.format("%s %s.", firstName, lastName);
+	}
 }

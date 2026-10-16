@@ -24,7 +24,11 @@ public class Event {
 
 	public List<EventPeriod> getPeriods() {
 		return IntStream.range(start, end)
-				.mapToObj(i -> EventPeriod.builder().period(i).build())
+				.mapToObj(hour -> EventPeriod
+						.builder()
+						.period(hour)
+						.registrations(registrations.stream().filter(r -> r.getArrivalHour() == hour).toList())
+						.build())
 				.collect(Collectors.toList());
 	}
 

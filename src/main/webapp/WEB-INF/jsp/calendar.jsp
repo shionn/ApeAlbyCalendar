@@ -26,7 +26,10 @@ Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapi
 	<tbody>
 		<c:forEach items="${event.periods}" var="period">
 			<tr>
-				<td>${period.label}</td><td>TODO</td>
+				<td>${period.label}</td>
+				<c:forTokens items="${period.registrations}" delims="registration">
+					<td>${registraion.shortLabel}</td>
+				</c:forTokens>
 			</tr>
 		</c:forEach>
 		<tr>

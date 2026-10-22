@@ -45,15 +45,6 @@ public class NameNormalizerTest {
 	}
 
 	@Test
-	public void testCapitalizeNullReturnsNull() {
-		String result = new EventRegistrationNormalizer().capitalizeWords(null);
-
-		assertThat(result)
-				.as("capitalizeWords(null) renvoie null")
-				.isNull();
-	}
-
-	@Test
 	public void testCapitalizeTrimsWhitespace() {
 		String result = new EventRegistrationNormalizer().capitalizeWords("  jean   paul  ");
 

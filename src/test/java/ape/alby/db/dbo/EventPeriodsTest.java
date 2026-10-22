@@ -2,6 +2,7 @@ package ape.alby.db.dbo;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -10,7 +11,7 @@ public class EventPeriodsTest {
 
 	@Test
 	public void testGetPeriodsCouvreLaPlageInclusifExclusif() {
-		Event event = Event.builder().start(5).end(7).build();
+		Event event = Event.builder().start(5).end(7).registrations(Collections.emptyList()).build();
 		List<EventPeriod> periods = event.getPeriods();
 
 		assertThat(periods)

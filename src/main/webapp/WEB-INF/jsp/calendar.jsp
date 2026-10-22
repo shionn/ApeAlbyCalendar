@@ -27,9 +27,9 @@ Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapi
 		<c:forEach items="${event.periods}" var="period">
 			<tr>
 				<td>${period.label}</td>
-				<c:forTokens items="${period.registrations}" delims="registration">
+				<c:forEach items="${period.registrations}" var="registration">
 					<td>${registraion.shortLabel}</td>
-				</c:forTokens>
+				</c:forEach>
 			</tr>
 		</c:forEach>
 		<tr>

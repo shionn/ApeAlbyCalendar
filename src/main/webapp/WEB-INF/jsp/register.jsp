@@ -9,40 +9,44 @@
 <jsp:attribute name="content">
 
 <h1>Insciption <fmt:formatDate value="${event.day}" pattern="dd MMMM YYYY"/> - ${event.name}</h1>
+<article>
+	<p>A voir si on met un text ici ?</p>
 
-<p>A voir si on met un text ici ?</p>
-
-<spring:url value="/event/${event.id}/register" var="url"/>
-<form:form action="${url}" method="POST">
-	<label for="firstName">Prénom</label>
-	<input id="firstName" name="firstName" type="text" maxlength="100" required="required"/>
-
-	<label for="lastName">Nom</label>
-	<input id="lastName" name="lastName" type="text" maxlength="100" required="required"/>
-
-	<label for="email">Email</label>
-	<input id="email" name="email" type="email" maxlength="200" required="required"/>
-
-	<label for="arrivalHour">Heure d'arrivée</label>
-	<select id="arrivalHour" name="arrivalHour">
-		<c:forEach items="${event.periods}" var="p">
-			<option value="${p.period}" <c:if test="${arrivalHour == p.period}">selected="selected"</c:if>>${p.period}h</option>
-		</c:forEach>
-	</select>
-
-	<label for="departureHour">Heure de départ</label>
-	<select id="departureHour" name="departureHour">
-		<c:forEach items="${event.periods}" var="p">
-			<option value="${p.period+1}" <c:if test="${arrivalHour == p.period}">selected="selected"</c:if>>${p.period+1}h</option>
-		</c:forEach>
-	</select>
-
-	<label for="comment">Commentaire</label>
-	<textarea id="comment" name="comment" rows="5" placeholder="Ajouter toute remarque qui vous semble pertinente." maxlength="2048"></textarea>
-
-	<input type="submit" value="S'inscrire"/>
-
-</form:form>
+	<spring:url value="/event/${event.id}/register" var="url"/>
+	<form:form action="${url}" method="POST">
+		<label for="firstName">Prénom</label>
+		<input id="firstName" name="firstName" type="text" maxlength="100" required="required"/>
+	
+		<label for="lastName">Nom</label>
+		<input id="lastName" name="lastName" type="text" maxlength="100" required="required"/>
+	
+		<label for="email">Email</label>
+		<input id="email" name="email" type="email" maxlength="200" required="required"/>
+	
+		<label for="arrivalHour">Heure d'arrivée</label>
+		<select id="arrivalHour" name="arrivalHour">
+			<c:forEach items="${event.periods}" var="p">
+				<option value="${p.period}" <c:if test="${arrivalHour == p.period}">selected="selected"</c:if>>${p.period}h</option>
+			</c:forEach>
+		</select>
+	
+		<label for="departureHour">Heure de départ</label>
+		<select id="departureHour" name="departureHour">
+			<c:forEach items="${event.periods}" var="p">
+				<option value="${p.period+1}" <c:if test="${arrivalHour == p.period}">selected="selected"</c:if>>${p.period+1}h</option>
+			</c:forEach>
+		</select>
+	
+		<label for="comment">Commentaire</label>
+		<textarea id="comment" name="comment" rows="5" placeholder="Ajouter toute remarque qui vous semble pertinente." maxlength="2048"></textarea>
+	
+		<c:if test="${not empty error}">
+			<aside><p>Erreur : ${error}</p></aside>
+		</c:if>
+		<input type="submit" value="S'inscrire"/>
+	
+	</form:form>
+</article>
 
 </jsp:attribute>
 </t:template>

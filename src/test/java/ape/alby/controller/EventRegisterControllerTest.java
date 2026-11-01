@@ -1,8 +1,10 @@
 package ape.alby.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -169,5 +171,28 @@ class EventRegisterControllerTest {
 		assertThat(messageCaptor.getValue()).isEqualTo("Votre inscription a bien été enregistrée.");
 		assertThat(result.getViewName()).isEqualTo("redirect:/");
 	}
+	@Test
+	public void testRegisterBlockedWhenAlreadyRegistered() {
+		EventRegistration form = EventRegistration.builder()
+				.firstName("jean")
+				.lastName("dupont")
+				.email("jean.dupont@example.com")
+				.arrivalHour(18).departureHour(19)
+				.comment("")
+				.build();
+
+		when(registerDao.existsByPersonAndEvent(anyInt(), any(EventRegistration.class))).thenReturn(1);
+
+		ModelAndView result = controller.register(5, form, redirectAttributes);
+
+		verify(registerDao, times(0)).register(anyInt(), any(EventRegistration.class));
+		verify(session, never()).commit();
+
+		ArgumentCaptor<String> messageCaptor = ArgumentCaptor.forClass(String.class);
+		verify(redirectAttributes).addFlashAttribute(eq("error"), messageCaptor.capture());
+		assertThat(messageCaptor.getValue()).isEqualTo("Vous êtes déjà inscrit à cet événement.");
+		assertThat(result.getViewName()).isEqualTo("redirect:/event/5/register");
+	}
+
 
 }

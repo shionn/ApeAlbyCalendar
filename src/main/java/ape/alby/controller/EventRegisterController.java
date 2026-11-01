@@ -37,10 +37,14 @@ public class EventRegisterController {
 	@PostMapping("/event/{id}/register")
 	public ModelAndView register(@PathVariable("id") int id, @ModelAttribute() EventRegistration form,
 			RedirectAttributes redirectAttributes) {
-		// TODO verifier qu'un enregistrement semblable n'existe pas, meme mail /
-		// prenom / nom/ event sans prendre en compte la casse
+		// Unicité par personne + événement (sans tenir compte de l'heure ni de la casse)
 		EventRegistration registration = normalize(form);
 		RegisterDao dao = session.getMapper(RegisterDao.class);
+		if (dao.existsByPersonAndEvent(id, registration) > 0) {
+			redirectAttributes.addFlashAttribute("error",
+					"Vous êtes déjà inscrit à cet événement.");
+			return new ModelAndView("redirect:/event/" + id + "/register");
+		}
 		IntStream
 				.range(registration.getArrivalHour(), registration.getDepartureHour())
 				.mapToObj(h -> EventRegistration

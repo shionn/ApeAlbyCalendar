@@ -21,4 +21,9 @@ public interface RegisterDao {
 			""")
 	int register(@Param("id") int id, @Param("register") EventRegistration registration);
 
+	@Select("SELECT COUNT(*) FROM event_register "
+			+ "WHERE event = #{id} AND firstName = #{registration.firstName} "
+			+ "AND lastName = #{registration.lastName} AND email = #{registration.email}")
+	int existsByPersonAndEvent(@Param("id") int id, @Param("registration") EventRegistration registration);
+
 }

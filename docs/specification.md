@@ -41,11 +41,12 @@ Une inscription couvre un créneau `[arrivée, départ]`. Elle est découpée en
 
 ### 2.3 Routes
 - `GET /event/{id}/register` → affiche le formulaire. Un paramètre optionnel `arrivalHour` peut pré-sélectionner une heure.
-- `POST /event/{id}/register` → persiste les créneaux horaires.
-- Après inscription, redirection vers `/` avec un message de succès.
+- `POST /event/{id}/register` → vérifie d'abord l'unicité de l'inscription (voir § 2.5) ; si la personne est déjà inscrite à cet événement, redirige vers le formulaire avec un message d'erreur, sinon persiste les créneaux horaires.
+- Après inscription réussie, redirection vers `/` avec un message de succès.
 
-### 2.4 À faire
-- Vérifier l'unicité des inscriptions (email / prénom / nom / événement, sans tenir compte de la casse).
+### 2.5 Unicité de l'inscription
+
+Une personne ne peut pas s'inscrire deux fois au même événement. La vérification porte sur l'identité **normalisée** (email + prénom + nom en minuscule) et l'événement, **sans tenir compte de l'heure ni de la casse** : une personne déjà inscrite à un créneau ne peut pas s'inscrire à un autre créneau du même événement. Une tentative bloquée redirige vers le formulaire (`/event/{id}/register`) avec un message d'erreur affiché (`error`).
 
 ## 3. Normalisation des noms
 
@@ -64,7 +65,3 @@ Une inscription couvre un créneau `[arrivée, départ]`. Elle est découpée en
 - `GET /event/{id}/unregister` → affiche le formulaire de désinscription (prénom, nom, email, créneau).
 - `POST /event/{id}/unregister` → normalise prénom, nom et email en minuscule, puis vérifie qu'un enregistrement correspondant existe (prénom + nom + email + heure d'arrivée) ; si oui, le supprime, redirige vers `/` avec un message de succès, sinon redirige vers le formulaire avec un message d'erreur.
 - Formulaire semblable à celui d'inscription, sans champ commentaire.
-
-## 6. À faire / TODO
-
-- Vérifier l'unicité des inscriptions (voir § 2.4).

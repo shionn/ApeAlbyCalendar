@@ -14,8 +14,20 @@ public class EventRegistrationTest {
 				.build();
 
 		assertThat(registration.getShortLabel())
-				.as("le label joint les deux noms avec un espace puis un point")
-				.isEqualTo("jean paul.");
+				.as("premier lettre du prenom en majuscule + '.' puis nom en minuscule")
+				.isEqualTo("J. Paul");
+	}
+
+	@Test
+	public void testGetShortLabelMichelVaillant() {
+		EventRegistration registration = EventRegistration.builder()
+				.firstName("michel")
+				.lastName("vaillant")
+				.build();
+
+		assertThat(registration.getShortLabel())
+				.as("exemple specifique du cahier des charges")
+				.isEqualTo("M. Vaillant");
 	}
 
 	@Test
@@ -26,8 +38,8 @@ public class EventRegistrationTest {
 				.build();
 
 		assertThat(registration.getShortLabel())
-				.as("un nom firstName null est rendu 'null' par String.format")
-				.isEqualTo("null paul.");
+				.as("firstName null -> prenom vide, pas de NPE")
+				.isEqualTo(". Paul");
 	}
 
 	@Test
@@ -38,8 +50,8 @@ public class EventRegistrationTest {
 				.build();
 
 		assertThat(registration.getShortLabel())
-				.as("un nom lastName null est rendu 'null' par String.format")
-				.isEqualTo("jean null.");
+				.as("lastName null -> nom vide, pas de NPE")
+				.isEqualTo("J. ");
 	}
 
 	@Test
@@ -50,8 +62,8 @@ public class EventRegistrationTest {
 				.build();
 
 		assertThat(registration.getShortLabel())
-				.as("deux noms null sont rendus 'null' par String.format")
-				.isEqualTo("null null.");
+				.as("deux noms null -> rendu vide, pas de NPE")
+				.isEqualTo(". ");
 	}
 
 	@Test

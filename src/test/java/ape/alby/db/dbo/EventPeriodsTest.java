@@ -22,6 +22,19 @@ public class EventPeriodsTest {
 	}
 
 	@Test
+	public void testGetMaxRegisterRetourneLeMaxParPeriodeEtNonLaSomme() {
+		EventRegistration r1 = EventRegistration.builder().arrivalHour(5).build();
+		EventRegistration r2 = EventRegistration.builder().arrivalHour(6).build();
+		EventRegistration r3 = EventRegistration.builder().arrivalHour(7).build();
+		Event event = Event.builder().start(5).end(8).registrations(java.util.List.of(r1, r2, r3)).build();
+
+		assertThat(event.getMaxRegister())
+				.as("périodes [5:1, 6:1, 7:0] -> max = 1, pas la somme 3")
+				.isEqualTo(1);
+	}
+
+
+	@Test
 	public void testGetPeriodsRegistrationsNullNeLancePasDeNPE() {
 		Event event = Event.builder().start(5).end(7).build();
 		assertThat(event.getPeriods())

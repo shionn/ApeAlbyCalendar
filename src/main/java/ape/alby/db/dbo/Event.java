@@ -33,4 +33,8 @@ public class Event {
 				.collect(Collectors.toList());
 	}
 
+	public int getMaxRegister() {
+		return getPeriods().stream().map(p -> p.getRegistrations().size()).reduce(0, Integer::max);
+	}
+
 }

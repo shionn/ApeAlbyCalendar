@@ -20,7 +20,7 @@ Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapi
 
 <table>
 	<thead>
-		<tr><th>Quand</th><th colspan="2">Qui</th></tr>
+		<tr><th>Quand</th><th colspan="${event.maxRegister+1}">Qui</th></tr>
 	</thead>
 	<tbody>
 		<c:forEach items="${event.periods}" var="period">
@@ -29,10 +29,16 @@ Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapi
 				<c:forEach items="${period.registrations}" var="reg">
 					<td>${reg.shortLabel}</td>
 				</c:forEach>
+				<c:forEach begin="${period.registrations.size()}" end="${event.maxRegister-1}">
+					<td>${event.maxRegister}</td>
+				</c:forEach>
 				<td><spring:url value='/event/${event.id}/register' var='regUrl'/><a href="${regUrl}?arrivalHour=${period.period}"><em>S'inscrire</em></a></td>
 			</tr>
 		</c:forEach>
 	</tbody>
 </table>
+
+
+
 </jsp:attribute>
 </t:template>

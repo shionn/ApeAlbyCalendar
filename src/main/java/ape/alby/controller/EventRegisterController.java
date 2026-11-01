@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ape.alby.db.dao.RegisterDao;
 import ape.alby.db.dbo.Event;
@@ -34,7 +35,8 @@ public class EventRegisterController {
 	}
 
 	@PostMapping("/event/{id}/register")
-	public ModelAndView register(@PathVariable("id") int id, @ModelAttribute() EventRegistration form) {
+	public ModelAndView register(@PathVariable("id") int id, @ModelAttribute() EventRegistration form,
+			RedirectAttributes redirectAttributes) {
 		// TODO verifier qu'un enregistrement semblable n'existe pas, meme mail /
 		// prenom / nom/ event sans prendre en compte la casse
 		EventRegistration registration = normalize(form);
@@ -52,6 +54,7 @@ public class EventRegisterController {
 						.build())
 				.forEach(r -> dao.register(id, r));
 		session.commit();
+		redirectAttributes.addFlashAttribute("success", "Votre inscription a bien été enregistrée.");
 		return new ModelAndView("redirect:/");
 	}
 

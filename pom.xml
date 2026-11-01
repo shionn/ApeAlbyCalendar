@@ -12,12 +12,12 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<version.spring>7.0.7</version.spring>
+		<version.spring>7.0.10</version.spring>
 		<version.servlet-api>6.0.0</version.servlet-api>
 		<version.jsp-api>4.0.0</version.jsp-api>
 		<version.jstl>3.0.1</version.jstl>
 		<version.jstl-api>3.0.2</version.jstl-api>
-		<version.lombock>1.18.38</version.lombock>
+		<version.lombock>1.18.48</version.lombock>
 	</properties>
 
 	<build>
@@ -186,14 +186,14 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-simple</artifactId>
-			<version>2.0.17</version>
+			<version>2.0.20</version>
 		</dependency>
 
 		<!-- Test -->
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter</artifactId>
-			<version>6.0.3</version>
+			<version>6.1.3</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -205,13 +205,13 @@
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
-			<version>5.23.0</version>
+			<version>5.24.0</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-junit-jupiter</artifactId>
-			<version>5.23.0</version>
+			<version>5.24.0</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

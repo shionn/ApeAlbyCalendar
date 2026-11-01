@@ -62,10 +62,9 @@ Une inscription couvre un créneau `[arrivée, départ]`. Elle est découpée en
 ## 5. Désinscription
 
 - `GET /event/{id}/unregister` → affiche le formulaire de désinscription (prénom, nom, email, créneau).
-- `POST /event/{id}/unregister` → vérifie qu'un enregistrement correspondant existe (prénom + nom + email + heure d'arrivée, sans tenir compte de la casse) ; si oui, le supprime, sinon redirige vers `/` avec un message d'erreur.
+- `POST /event/{id}/unregister` → normalise prénom, nom et email en minuscule, puis vérifie qu'un enregistrement correspondant existe (prénom + nom + email + heure d'arrivée) ; si oui, le supprime, redirige vers `/` avec un message de succès, sinon redirige vers le formulaire avec un message d'erreur.
 - Formulaire semblable à celui d'inscription, sans champ commentaire.
 
 ## 6. À faire / TODO
 
-- Implémenter la suppression en base pour la désinscription.
 - Vérifier l'unicité des inscriptions (voir § 2.4).

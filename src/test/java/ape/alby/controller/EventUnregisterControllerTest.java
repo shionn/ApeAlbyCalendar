@@ -52,6 +52,7 @@ class EventUnregisterControllerTest {
 				.build();
 
 		when(unregisterDao.existsByCriteria(anyInt(), any(EventRegistration.class))).thenReturn(1);
+		when(redirectAttributes.addFlashAttribute(eq("success"), anyString())).thenReturn(redirectAttributes);
 
 		ModelAndView result = controller.unregister(5, form, redirectAttributes);
 
@@ -71,6 +72,7 @@ class EventUnregisterControllerTest {
 		assertThat(deleted.getArrivalHour()).isEqualTo(18).as("heure supprimée");
 		verify(session).commit();
 		assertThat(result.getViewName()).isEqualTo("redirect:/");
+		verify(redirectAttributes).addFlashAttribute("success", "Votre désinscription a bien été enregistrée.");
 	}
 
 	@Test

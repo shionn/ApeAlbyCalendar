@@ -36,6 +36,7 @@ public class EventUnregisterController {
 		if (dao.existsByCriteria(id, normalized) > 0) {
 			dao.deleteByCriteria(id, normalized);
 			session.commit();
+			redirectAttributes.addFlashAttribute("success", "Votre désinscription a bien été enregistrée.");
 			return new ModelAndView("redirect:/");
 		} else {
 			redirectAttributes

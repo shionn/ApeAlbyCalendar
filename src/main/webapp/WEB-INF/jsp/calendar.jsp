@@ -6,6 +6,9 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="t"%>
 <t:template>
 <jsp:attribute name="content">
+<c:if test="${not empty success}">
+	<p>Succès : ${success}</p>
+</c:if>
 
 <h1><fmt:formatDate value="${event.day}" pattern="dd MMMM YYYY"/> - ${event.name}</h1>
 

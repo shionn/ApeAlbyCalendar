@@ -4,18 +4,18 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import ape.alby.db.dbo.EventRegistration;
+
 public interface UnregisterDao {
 
 	@Select("SELECT COUNT(*) FROM event_register "
-			+ "WHERE event = #{id} AND firstName = #{firstName} "
-			+ "AND lastName = #{lastName} AND email = #{email} AND arrivalHour = #{arrivalHour}")
-	int existsByCriteria(@Param("id") int id, @Param("firstName") String firstName,
-			@Param("lastName") String lastName, @Param("email") String email, @Param("arrivalHour") int arrivalHour);
+			+ "WHERE event = #{id} AND firstName = #{register.firstName} "
+			+ "AND lastName = #{register.lastName} AND email = #{register.email} AND arrivalHour = #{register.arrivalHour}")
+	int existsByCriteria(@Param("id") int id, @Param("register") EventRegistration registration);
 
 	@Delete("DELETE FROM event_register "
-			+ "WHERE event = #{id} AND firstName = #{firstName} "
-			+ "AND lastName = #{lastName} AND email = #{email} AND arrivalHour = #{arrivalHour}")
-	int deleteByCriteria(@Param("id") int id, @Param("firstName") String firstName,
-			@Param("lastName") String lastName, @Param("email") String email, @Param("arrivalHour") int arrivalHour);
+			+ "WHERE event = #{id} AND firstName = #{register.firstName} "
+			+ "AND lastName = #{register.lastName} AND email = #{register.email} AND arrivalHour = #{register.arrivalHour}")
+	int deleteByCriteria(@Param("id") int id, @Param("register") EventRegistration registration);
 
 }

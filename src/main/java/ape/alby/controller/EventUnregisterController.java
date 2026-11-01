@@ -19,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class EventUnregisterController {
 	private final SqlSession session;
+	private final EventRegistrationNormalizer normalizer;
 
 	@GetMapping("/event/{id}/unregister")
 	public ModelAndView openUnregister(@PathVariable("id") int id) {
@@ -30,12 +31,10 @@ public class EventUnregisterController {
 	public ModelAndView unregister(@PathVariable("id") int id, @ModelAttribute() EventRegistration form,
 			RedirectAttributes redirectAttributes) {
 		UnregisterDao dao = session.getMapper(UnregisterDao.class);
-		String firstName = form.getFirstName() == null ? "" : form.getFirstName().toLowerCase();
-		String lastName = form.getLastName() == null ? "" : form.getLastName().toLowerCase();
-		String email = form.getEmail() == null ? "" : form.getEmail().toLowerCase();
+		EventRegistration normalized = normalizer.normalize(form);
 
-		if (dao.existsByCriteria(id, firstName, lastName, email, form.getArrivalHour()) > 0) {
-			dao.deleteByCriteria(id, firstName, lastName, email, form.getArrivalHour());
+		if (dao.existsByCriteria(id, normalized) > 0) {
+			dao.deleteByCriteria(id, normalized);
 			session.commit();
 			return new ModelAndView("redirect:/");
 		} else {

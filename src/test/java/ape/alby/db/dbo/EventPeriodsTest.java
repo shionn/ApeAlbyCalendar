@@ -22,6 +22,17 @@ public class EventPeriodsTest {
 	}
 
 	@Test
+	public void testGetPeriodsRegistrationsNullNeLancePasDeNPE() {
+		Event event = Event.builder().start(5).end(7).build();
+		assertThat(event.getPeriods())
+				.as("registrations == null : getPeriods ne doit pas lancer de NPE")
+				.hasSize(2)
+				.extracting(EventPeriod::getPeriod)
+				.containsExactly(5, 6);
+	}
+
+
+	@Test
 	public void testGetPeriodsRangeValideSingleton() {
 		Event event = Event.builder().start(3).end(3).build();
 		event.setStart(3);

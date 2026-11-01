@@ -26,7 +26,7 @@
 	<label for="arrivalHour">Heure d'arrivée</label>
 	<select id="arrivalHour" name="arrivalHour">
 		<c:forEach items="${event.periods}" var="p">
-			<option value="${p.period}">${p.period}h</option>
+			<option value="${p.period}" selected="${arrivalHour == p.period}">${p.period}h</option>
 		</c:forEach>
 	</select>
 

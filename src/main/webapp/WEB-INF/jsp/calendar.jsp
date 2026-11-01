@@ -2,7 +2,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
-<%@ taglib prefix="fn" uri="jakarta.tags.functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="t"%>
 <t:template>
@@ -30,7 +29,7 @@ Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapi
 				<c:forEach items="${period.registrations}" var="reg">
 					<td>${reg.shortLabel}</td>
 				</c:forEach>
-				<td></td>
+				<td><spring:url value='/event/${event.id}/register' var='regUrl'/><a href="${regUrl}?arrivalHour=${period.period}"><em>S'inscrire</em></a></td>
 			</tr>
 		</c:forEach>
 	</tbody>

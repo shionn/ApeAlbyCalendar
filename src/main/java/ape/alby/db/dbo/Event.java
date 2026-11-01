@@ -23,11 +23,12 @@ public class Event {
 	private List<EventRegistration> registrations;
 
 	public List<EventPeriod> getPeriods() {
+		List<EventRegistration> regs = registrations == null ? List.of() : registrations;
 		return IntStream.range(start, end)
 				.mapToObj(hour -> EventPeriod
 						.builder()
 						.period(hour)
-						.registrations(registrations.stream().filter(r -> r.getArrivalHour() == hour).toList())
+						.registrations(regs.stream().filter(r -> r.getArrivalHour() == hour).toList())
 						.build())
 				.collect(Collectors.toList());
 	}

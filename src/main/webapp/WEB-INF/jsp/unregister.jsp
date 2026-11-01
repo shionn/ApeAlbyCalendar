@@ -1,0 +1,46 @@
+<%@ page pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="t"%>
+<t:template>
+<jsp:attribute name="content">
+
+<h1>Désinscription <fmt:formatDate value="${event.day}" pattern="dd MMMM YYYY"/> - ${event.name}</h1>
+
+<p>A voir si on met un text ici ?</p>
+
+<spring:url value="/event/${event.id}/unregister" var="url"/>
+<form:form action="${url}" method="POST">
+	<label for="firstName">Prénom</label>
+	<input id="firstName" name="firstName" type="text" maxlength="100" required="required"/>
+
+	<label for="lastName">Nom</label>
+	<input id="lastName" name="lastName" type="text" maxlength="100" required="required"/>
+
+	<label for="email">Email</label>
+	<input id="email" name="email" type="email" maxlength="200" required="required"/>
+
+	<label for="arrivalHour">Heure d'arrivée</label>
+	<select id="arrivalHour" name="arrivalHour">
+		<c:forEach items="${event.periods}" var="p">
+			<option value="${p.period}" <c:if test="${arrivalHour == p.period}">selected="selected"</c:if>>${p.period}h</option>
+		</c:forEach>
+	</select>
+
+	<label for="departureHour">Heure de départ</label>
+	<select id="departureHour" name="departureHour">
+		<c:forEach items="${event.periods}" var="p">
+			<option value="${p.period+1}" <c:if test="${arrivalHour == p.period}">selected="selected"</c:if>>${p.period+1}h</option>
+		</c:forEach>
+	</select>
+
+
+	<br/>
+	<input type="submit" value="Se désinscrire"/>
+
+</form:form>
+
+</jsp:attribute>
+</t:template>

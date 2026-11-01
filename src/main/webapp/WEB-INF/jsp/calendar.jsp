@@ -39,6 +39,9 @@ Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapi
 </table>
 
 
+<h2>Se désinscrire</h2>
+<a href="<spring:url value='/event/${event.id}/unregister'/>"><b>Se désinscrire</b></a>
+
 
 </jsp:attribute>
 </t:template>

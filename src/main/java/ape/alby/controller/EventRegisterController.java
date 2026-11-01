@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-public class EventController {
+public class EventRegisterController {
 	private final SqlSession session;
 	private final EventRegistrationNormalizer nameNormalizer;
 
@@ -35,7 +35,7 @@ public class EventController {
 
 	@PostMapping("/event/{id}/register")
 	public ModelAndView register(@PathVariable("id") int id, @ModelAttribute() EventRegistration form) {
-		// TODO verifier qu'un enregiostrement semblable n'existe pas, meme mail /
+		// TODO verifier qu'un enregistrement semblable n'existe pas, meme mail /
 		// prenom / nom/ event sans prendre en compte la casse
 		EventRegistration registration = normalize(form);
 		RegisterDao dao = session.getMapper(RegisterDao.class);
@@ -58,5 +58,4 @@ public class EventController {
 	private EventRegistration normalize(EventRegistration registration) {
 		return nameNormalizer.normalize(registration);
 	}
-
 }

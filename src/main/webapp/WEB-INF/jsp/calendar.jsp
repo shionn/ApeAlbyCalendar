@@ -6,16 +6,17 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="t"%>
 <t:template>
 <jsp:attribute name="content">
-<c:if test="${not empty success}">
-	<p>Succès : ${success}</p>
-</c:if>
 
 <h1><fmt:formatDate value="${event.day}" pattern="dd MMMM YYYY"/> - ${event.name}</h1>
 
-<p>Petit text de presentation expliquant les besoin et les enjeux. Combien il faudrait être. A quel heure jusqu'a quand et les modalité d'inscription. Le nombre idéale de personne par tranche horaire...
-Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
-</p>
-
+<article>
+	<c:if test="${not empty success}">
+		<aside><p>Succès : ${success}</p></aside>
+	</c:if>
+	<p>Petit text de presentation expliquant les besoin et les enjeux. Combien il faudrait être. A quel heure jusqu'a quand et les modalité d'inscription. Le nombre idéale de personne par tranche horaire...
+	Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+	</p>
+</article>
 
 <a href="<spring:url value="/event/${event.id}/register"/>"><b>Je m'inscis</b></a>
 

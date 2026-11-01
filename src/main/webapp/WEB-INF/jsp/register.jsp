@@ -40,7 +40,6 @@
 	<label for="comment">Commentaire</label>
 	<textarea id="comment" name="comment" rows="5" placeholder="Ajouter toute remarque qui vous semble pertinente." maxlength="2048"></textarea>
 
-	<br/>
 	<input type="submit" value="S'inscrire"/>
 
 </form:form>

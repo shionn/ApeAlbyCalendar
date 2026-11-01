@@ -87,7 +87,7 @@ class EventRegisterControllerTest {
 				.comment("test")
 				.build();
 
-		ModelAndView result = controller.register(5, form);
+		ModelAndView result = controller.register(5, form, redirectAttributes);
 
 		ArgumentCaptor<EventRegistration> registrationCaptor = ArgumentCaptor.forClass(EventRegistration.class);
 		verify(registerDao, times(2)).register(eq(5), registrationCaptor.capture());
@@ -123,7 +123,7 @@ class EventRegisterControllerTest {
 				.comment("")
 				.build();
 
-		ModelAndView result = controller.register(5, form);
+		ModelAndView result = controller.register(5, form, redirectAttributes);
 
 		ArgumentCaptor<EventRegistration> registrationCaptor = ArgumentCaptor.forClass(EventRegistration.class);
 		verify(registerDao, times(1)).register(eq(5), registrationCaptor.capture());
@@ -144,7 +144,7 @@ class EventRegisterControllerTest {
 				.comment("")
 				.build();
 
-		ModelAndView result = controller.register(5, form);
+		ModelAndView result = controller.register(5, form, redirectAttributes);
 
 		ArgumentCaptor<EventRegistration> registrationCaptor = ArgumentCaptor.forClass(EventRegistration.class);
 		verify(registerDao, times(0)).register(eq(5), registrationCaptor.capture());
@@ -152,4 +152,22 @@ class EventRegisterControllerTest {
 		verify(session).commit();
 		assertThat(result.getViewName()).isEqualTo("redirect:/");
 	}
+	@Test
+	public void testRegisterAddsSuccessFlashAttribute() {
+		EventRegistration form = EventRegistration.builder()
+				.firstName("jean")
+				.lastName("dupont")
+				.email("jean.dupont@example.com")
+				.arrivalHour(18).departureHour(19)
+				.comment("")
+				.build();
+
+		ModelAndView result = controller.register(5, form, redirectAttributes);
+
+		ArgumentCaptor<String> messageCaptor = ArgumentCaptor.forClass(String.class);
+		verify(redirectAttributes).addFlashAttribute(eq("success"), messageCaptor.capture());
+		assertThat(messageCaptor.getValue()).isEqualTo("Votre inscription a bien été enregistrée.");
+		assertThat(result.getViewName()).isEqualTo("redirect:/");
+	}
+
 }

@@ -42,7 +42,7 @@ Une inscription couvre un créneau `[arrivée, départ]`. Elle est découpée en
 ### 2.3 Routes
 - `GET /event/{id}/register` → affiche le formulaire. Un paramètre optionnel `arrivalHour` peut pré-sélectionner une heure.
 - `POST /event/{id}/register` → persiste les créneaux horaires.
-- Après inscription, redirection vers `/`.
+- Après inscription, redirection vers `/` avec un message de succès.
 
 ### 2.4 À faire
 - Vérifier l'unicité des inscriptions (email / prénom / nom / événement, sans tenir compte de la casse).

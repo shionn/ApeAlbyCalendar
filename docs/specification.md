@@ -49,7 +49,7 @@ Une inscription couvre un créneau `[arrivée, départ]`. Elle est découpée en
 
 ## 3. Normalisation des noms
 
-- **Stockage** : avant l'écriture en base, le prénom et le nom sont mis en **minuscule** (`EventRegistrationNormalizer.normalize`).
+- **Stockage** : avant l'écriture en base, le prénom, le nom et l'email sont mis en **minuscule** (`EventRegistrationNormalizer.normalize`).
 - **Affichage** : le libellé court affiche le prénom au complet (première lettre en majuscule), puis la première lettre du nom en majuscule suivie d'un point. Ex. `michel` / `vaillant` → `Michel V.`.
 
 ## 4. Affichage du tableau des inscrits
@@ -62,7 +62,7 @@ Une inscription couvre un créneau `[arrivée, départ]`. Elle est découpée en
 ## 5. Désinscription
 
 - `GET /event/{id}/unregister` → affiche le formulaire de désinscription (prénom, nom, email, créneau).
-- `POST /event/{id}/unregister` → suppression des inscriptions correspondantes (à implémenter).
+- `POST /event/{id}/unregister` → vérifie qu'un enregistrement correspondant existe (prénom + nom + email + heure d'arrivée, sans tenir compte de la casse) ; si oui, le supprime, sinon redirige vers `/` avec un message d'erreur.
 - Formulaire semblable à celui d'inscription, sans champ commentaire.
 
 ## 6. À faire / TODO

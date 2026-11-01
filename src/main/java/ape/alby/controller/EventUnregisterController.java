@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ape.alby.db.dao.RegisterDao;
+import ape.alby.db.dao.UnregisterDao;
 import ape.alby.db.dbo.Event;
 import ape.alby.db.dbo.EventRegistration;
 import lombok.RequiredArgsConstructor;
@@ -25,8 +27,22 @@ public class EventUnregisterController {
 	}
 
 	@PostMapping("/event/{id}/unregister")
-	public ModelAndView unregister(@PathVariable("id") int id, @ModelAttribute() EventRegistration form) {
-		// TODO : suppression des inscriptions correspondantes en base (mise à jour BDD à faire plus tard)
-		return new ModelAndView("redirect:/");
+	public ModelAndView unregister(@PathVariable("id") int id, @ModelAttribute() EventRegistration form,
+			RedirectAttributes redirectAttributes) {
+		UnregisterDao dao = session.getMapper(UnregisterDao.class);
+		String firstName = form.getFirstName() == null ? "" : form.getFirstName().toLowerCase();
+		String lastName = form.getLastName() == null ? "" : form.getLastName().toLowerCase();
+		String email = form.getEmail() == null ? "" : form.getEmail().toLowerCase();
+
+		if (dao.existsByCriteria(id, firstName, lastName, email, form.getArrivalHour()) > 0) {
+			dao.deleteByCriteria(id, firstName, lastName, email, form.getArrivalHour());
+			session.commit();
+			return new ModelAndView("redirect:/");
+		} else {
+			redirectAttributes
+					.addFlashAttribute("error",
+							"Aucun enregistrement trouvé pour ce prénom, ce nom et cet email à cette heure.");
+			return new ModelAndView("redirect:/event/" + id + "/unregister");
+		}
 	}
 }

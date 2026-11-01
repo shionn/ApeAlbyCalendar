@@ -99,4 +99,37 @@ public class EventRegistrationNormalizerTest {
 		assertThat(result.getFirstName()).isEqualTo(expected.getFirstName()).as("firstName attendu");
 		assertThat(result.getLastName()).isEqualTo(expected.getLastName()).as("lastName attendu");
 	}
+
+	@Test
+	public void testNormalizeLowercasesEmail() {
+		EventRegistration input = EventRegistration.builder()
+				.firstName("michel")
+				.lastName("vaillant")
+				.email("Michel.V@Exemple.COM")
+				.arrivalHour(10).departureHour(12).comment("")
+				.build();
+
+		EventRegistration expected = EventRegistration.builder()
+				.firstName("michel")
+				.lastName("vaillant")
+				.email("michel.v@exemple.com")
+				.arrivalHour(10).departureHour(12).comment("")
+				.build();
+
+		EventRegistration result = normalizer.normalize(input);
+		assertThat(result.getEmail()).isEqualTo(expected.getEmail()).as("email mis en minuscule");
+	}
+
+	@Test
+	public void testNormalizeKeepsNullEmail() {
+		EventRegistration input = EventRegistration.builder()
+				.firstName("jean")
+				.lastName("dupont")
+				.email(null)
+				.arrivalHour(10).departureHour(12).comment("")
+				.build();
+
+		EventRegistration result = normalizer.normalize(input);
+		assertThat(result.getEmail()).as("email null conservé").isNull();
+	}
 }

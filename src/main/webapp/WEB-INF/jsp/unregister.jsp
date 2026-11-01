@@ -36,8 +36,10 @@
 		</c:forEach>
 	</select>
 
-
 	<br/>
+	<c:if test="${not empty error}">
+		<p>Erreur : ${error}</p>
+	</c:if>
 	<input type="submit" value="Se désinscrire"/>
 
 </form:form>

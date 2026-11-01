@@ -9,6 +9,7 @@ public class EventRegistrationNormalizer {
 	public EventRegistration normalize(EventRegistration registration) {
 		registration.setFirstName(lowercase(registration.getFirstName()));
 		registration.setLastName(lowercase(registration.getLastName()));
+		registration.setEmail(lowercase(registration.getEmail()));
 		return registration;
 	}
 

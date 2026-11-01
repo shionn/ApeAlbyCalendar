@@ -33,7 +33,7 @@ public class EventRegistrationNormalizer {
 			String part = parts[i];
 			if (!part.isEmpty()) {
 				sb.append(Character.toUpperCase(part.charAt(0)));
-				sb.append(part.substring(1));
+sb.append(part.substring(1).toLowerCase());
 			}
 		}
 		return sb.toString();

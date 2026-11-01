@@ -9,52 +9,7 @@ import ape.alby.db.dbo.EventRegistration;
 public class NameNormalizerTest {
 
 	@Test
-	public void testCapitalizeSingleWord() {
-		String result = new EventRegistrationNormalizer().capitalizeWords("julie");
-
-		assertThat(result)
-				.as("un mot 'julie' doit devenir 'Julie'")
-				.isEqualTo("Julie");
-	}
-
-	@Test
-	public void testCapitalizeMultipleWords() {
-		String result = new EventRegistrationNormalizer().capitalizeWords("jean paul");
-
-		assertThat(result)
-				.as("deux mots 'jean paul' doivent devenir 'Jean Paul'")
-				.isEqualTo("Jean Paul");
-	}
-
-	@Test
-	public void testCapitalizePreservesHyphenCase() {
-		String result = new EventRegistrationNormalizer().capitalizeWords("jean-paul");
-
-		assertThat(result)
-				.as("nom hyphené 'jean-paul' doit devenir 'Jean-Paul'")
-				.isEqualTo("Jean-Paul");
-	}
-
-	@Test
-	public void testCapitalizePreservesExistingCasing() {
-		String result = new EventRegistrationNormalizer().capitalizeWords("Jean-Pierre");
-
-		assertThat(result)
-				.as("casse existante 'Jean-Pierre' doit être préservée")
-				.isEqualTo("Jean-Pierre");
-	}
-
-	@Test
-	public void testCapitalizeTrimsWhitespace() {
-		String result = new EventRegistrationNormalizer().capitalizeWords("  jean   paul  ");
-
-		assertThat(result)
-				.as("espaces excédentaires doivent être supprimés -> 'Jean Paul'")
-				.isEqualTo("Jean Paul");
-	}
-
-	@Test
-	public void testNormalizeCapitalizesNames() {
+	public void testNormalizeLowercasesNames() {
 		EventRegistration form = EventRegistration.builder()
 				.firstName("jean")
 				.lastName("paul")
@@ -65,11 +20,11 @@ public class NameNormalizerTest {
 		EventRegistration result = new EventRegistrationNormalizer().normalize(form);
 
 		assertThat(result.getFirstName())
-				.as("firstName 'jean' doit devenir 'Jean'")
-				.isEqualTo("Jean");
+				.as("firstName 'jean' doit être en minuscule 'jean'")
+				.isEqualTo("jean");
 		assertThat(result.getLastName())
-				.as("lastName 'paul' doit devenir 'Paul'")
-				.isEqualTo("Paul");
+				.as("lastName 'paul' doit être en minuscule 'paul'")
+				.isEqualTo("paul");
 	}
 
 	@Test
@@ -85,11 +40,11 @@ public class NameNormalizerTest {
 		EventRegistration result = new EventRegistrationNormalizer().normalize(form);
 
 		assertThat(result.getFirstName())
-				.as("firstName 'jean-paul' doit devenir 'Jean-Paul'")
-				.isEqualTo("Jean-Paul");
+				.as("firstName 'jean-paul' en minuscule 'jean-paul'")
+				.isEqualTo("jean-paul");
 		assertThat(result.getLastName())
-				.as("lastName 'de-montfort' doit devenir 'De-Montfort'")
-				.isEqualTo("De-Montfort");
+				.as("lastName 'de-montfort' en minuscule 'de-montfort'")
+				.isEqualTo("de-montfort");
 		assertThat(result.getEmail())
 				.as("email doit être préservé")
 				.isEqualTo("jean@example.com");

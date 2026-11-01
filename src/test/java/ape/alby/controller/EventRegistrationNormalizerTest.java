@@ -26,8 +26,8 @@ public class EventRegistrationNormalizerTest {
 				.build();
 
 		EventRegistration expected = EventRegistration.builder()
-				.firstName("Jean-Paul")
-				.lastName("Dupont")
+				.firstName("jean-paul")
+				.lastName("dupont")
 				.email("a@b.com")
 				.arrivalHour(10).departureHour(12).comment("")
 				.build();
@@ -47,8 +47,8 @@ public class EventRegistrationNormalizerTest {
 				.build();
 
 		EventRegistration expected = EventRegistration.builder()
-				.firstName("Jean-Pierre")
-				.lastName("Dupont")
+				.firstName("jean-pierre")
+				.lastName("dupont")
 				.email("a@b.com")
 				.arrivalHour(10).departureHour(12).comment("")
 				.build();
@@ -68,8 +68,8 @@ public class EventRegistrationNormalizerTest {
 				.build();
 
 		EventRegistration expected = EventRegistration.builder()
-				.firstName("Jean Paul")
-				.lastName("Michel")
+				.firstName("jean paul")
+				.lastName("michel")
 				.email("a@b.com")
 				.arrivalHour(10).departureHour(12).comment("")
 				.build();
@@ -89,8 +89,8 @@ public class EventRegistrationNormalizerTest {
 				.build();
 
 		EventRegistration expected = EventRegistration.builder()
-				.firstName("Jean-Paul Dupont")
-				.lastName("Martin")
+				.firstName("jean--paul  dupont")
+				.lastName("martin")
 				.email("a@b.com")
 				.arrivalHour(10).departureHour(12).comment("")
 				.build();

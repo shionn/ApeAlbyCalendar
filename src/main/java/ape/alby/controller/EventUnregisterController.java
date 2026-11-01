@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import ape.alby.db.dao.RegisterDao;
@@ -20,14 +19,9 @@ public class EventUnregisterController {
 	private final SqlSession session;
 
 	@GetMapping("/event/{id}/unregister")
-	public ModelAndView openUnregister(@PathVariable("id") int id,
-			@RequestParam(value = "arrivalHour", required = false) String arrivalHourParam) {
-		int arrivalHour = arrivalHourParam == null || arrivalHourParam.isEmpty() ? -1 : Integer
-				.parseInt(arrivalHourParam);
+	public ModelAndView openUnregister(@PathVariable("id") int id) {
 		Event event = session.getMapper(RegisterDao.class).readEventById(id);
-		return new ModelAndView("unregister")
-				.addObject("event", event)
-				.addObject("arrivalHour", arrivalHour);
+		return new ModelAndView("unregister").addObject("event", event);
 	}
 
 	@PostMapping("/event/{id}/unregister")

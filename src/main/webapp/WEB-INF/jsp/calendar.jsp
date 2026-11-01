@@ -30,7 +30,7 @@ Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapi
 					<td>${reg.shortLabel}</td>
 				</c:forEach>
 				<c:forEach begin="${period.registrations.size()}" end="${event.maxRegister-1}">
-					<td>${event.maxRegister}</td>
+					<td> </td>
 				</c:forEach>
 				<td><spring:url value='/event/${event.id}/register' var='regUrl'/><a href="${regUrl}?arrivalHour=${period.period}"><em>S'inscrire</em></a></td>
 			</tr>

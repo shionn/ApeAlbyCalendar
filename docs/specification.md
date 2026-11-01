@@ -1,0 +1,71 @@
+# Spécification fonctionnelle — ApeAlbyCalendar
+
+Règles métier et comportement fonctionnel de l'application. Ce document décrit **ce que le système fait**, indépendamment de l'implémentation technique.
+
+> Distinct des autres docs du projet :
+> - `AGENTS.md` → workflow et conventions de développement.
+> - `NORME_DE_CODE.md` → règles de code.
+
+## Vocabulaire
+
+| Terme | Signification |
+|---|---|
+| Événement | Une activité à laquelle des personnes peuvent s'inscrire (ex. atelier). |
+| Période | Une tranche horaire d'une heure comprise dans la plage de l'événement. |
+| Créneau | Une période d'une heure ; unité de base d'inscription. |
+| Inscription | L'enregistrement d'une personne pour un ou plusieurs créneaux. |
+| `maxRegister` | Nombre maximal d'inscriptions répertoriées sur une seule période. |
+
+## 1. Événement et périodes
+
+- Un événement est défini par son `id`, son `name`, sa `day`, et une plage horaire `[start, end)` exprimée en heures.
+- Les périodes sont générées par heure entre `start` (inclusif) et `end` (exclusif) : `end - start` périodes.
+- Chaque période est identifiée par son heure `period`.
+- **Label affiché** d'une période : `%dh-%dh`, ex. `period = 18` → `18h-19h`.
+
+## 2. Inscription
+
+### 2.1 Formulaire
+Champs collectés :
+- Prénom (obligatoire)
+- Nom (obligatoire)
+- Email (obligatoire, format email)
+- Créneau d'arrivée (sélecteur d'heure)
+- Créneau de départ (sélecteur d'heure)
+- Commentaire (optionnel)
+
+### 2.2 Découpage en créneaux
+Une inscription couvre un créneau `[arrivée, départ]`. Elle est découpée en **créneaux horaires individuels de 1 h** :
+- `[18, 20[` → deux enregistrements : `18-19` et `19-20`.
+- Chaque enregistrement a `departureHour = arrivalHour + 1`.
+
+### 2.3 Routes
+- `GET /event/{id}/register` → affiche le formulaire. Un paramètre optionnel `arrivalHour` peut pré-sélectionner une heure.
+- `POST /event/{id}/register` → persiste les créneaux horaires.
+- Après inscription, redirection vers `/`.
+
+### 2.4 À faire
+- Vérifier l'unicité des inscriptions (email / prénom / nom / événement, sans tenir compte de la casse).
+
+## 3. Normalisation des noms
+
+- **Stockage** : avant l'écriture en base, le prénom et le nom sont mis en **minuscule** (`EventRegistrationNormalizer.normalize`).
+- **Affichage** : le libellé court retitre le nom — première lettre du prénom + `.`, puis le nom titré. Ex. `michel` / `vaillant` → `M. Vaillant`.
+
+## 4. Affichage du tableau des inscrits
+
+- Colonnes : « Quand » + une colonne par inscription possible.
+- `maxRegister` = nombre maximal d'inscriptions sur une seule période ; il fixe la largeur du tableau.
+- Les périodes ayant moins d'inscrits sont **remplies par des cellules vides** (un simple espace), afin que toutes les lignes aient la même largeur.
+- Chaque ligne dispose d'un lien « S'inscrire » pré-rempli avec l'heure de la période (`arrivalHour`).
+
+## 5. Désinscription
+
+- `GET /event/{id}/unregister` → affiche le formulaire de désinscription (prénom, nom, email, créneau).
+- `POST /event/{id}/unregister` → suppression des inscriptions correspondantes (à implémenter).
+- Formulaire semblable à celui d'inscription, sans champ commentaire.
+
+## 6. À faire / TODO
+
+- Implémenter la suppression en base pour la désinscription.
+- Vérifier l'unicité des inscriptions (voir § 2.4).

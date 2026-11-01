@@ -14,8 +14,8 @@ public class EventRegistrationTest {
 				.build();
 
 		assertThat(registration.getShortLabel())
-				.as("premier lettre du prenom en majuscule + '.' puis nom en minuscule")
-				.isEqualTo("J. Paul");
+				.as("prenom au complet (premiere lettre majuscule) + premiere lettre du nom majuscule + '.'")
+				.isEqualTo("Jean P.");
 	}
 
 	@Test
@@ -27,7 +27,7 @@ public class EventRegistrationTest {
 
 		assertThat(registration.getShortLabel())
 				.as("exemple specifique du cahier des charges")
-				.isEqualTo("M. Vaillant");
+				.isEqualTo("Michel V.");
 	}
 
 	@Test
@@ -39,7 +39,7 @@ public class EventRegistrationTest {
 
 		assertThat(registration.getShortLabel())
 				.as("firstName null -> prenom vide, pas de NPE")
-				.isEqualTo(". Paul");
+				.isEqualTo(" P.");
 	}
 
 	@Test
@@ -51,7 +51,7 @@ public class EventRegistrationTest {
 
 		assertThat(registration.getShortLabel())
 				.as("lastName null -> nom vide, pas de NPE")
-				.isEqualTo("J. ");
+				.isEqualTo("Jean ");
 	}
 
 	@Test
@@ -63,7 +63,7 @@ public class EventRegistrationTest {
 
 		assertThat(registration.getShortLabel())
 				.as("deux noms null -> rendu vide, pas de NPE")
-				.isEqualTo(". ");
+				.isEqualTo(" ");
 	}
 
 	@Test

@@ -19,8 +19,8 @@ public class EventRegistration {
 	private String comment;
 
 	public String getShortLabel() {
-		String fn = firstName == null || firstName.isEmpty() ? "" : firstName.substring(0, 1).toUpperCase();
-		String ln = lastName == null || lastName.isEmpty() ? "" : lastName.substring(0, 1).toUpperCase() + lastName.substring(1).toLowerCase();
-		return fn + ". " + ln;
+		String fn = firstName == null || firstName.isEmpty() ? "" : firstName.substring(0, 1).toUpperCase() + firstName.substring(1).toLowerCase();
+		String ln = lastName == null || lastName.isEmpty() ? "" : lastName.substring(0, 1).toUpperCase() + ".";
+		return fn + " " + ln;
 	}
 }

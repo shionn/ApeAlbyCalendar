@@ -50,7 +50,7 @@ Une inscription couvre un créneau `[arrivée, départ]`. Elle est découpée en
 ## 3. Normalisation des noms
 
 - **Stockage** : avant l'écriture en base, le prénom et le nom sont mis en **minuscule** (`EventRegistrationNormalizer.normalize`).
-- **Affichage** : le libellé court retitre le nom — première lettre du prénom + `.`, puis le nom titré. Ex. `michel` / `vaillant` → `M. Vaillant`.
+- **Affichage** : le libellé court affiche le prénom au complet (première lettre en majuscule), puis la première lettre du nom en majuscule suivie d'un point. Ex. `michel` / `vaillant` → `Michel V.`.
 
 ## 4. Affichage du tableau des inscrits
 
